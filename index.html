@@ -1,0 +1,3354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sining ni Peping | Handcrafted Wood Art</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --dark: #2C2925;
+            --accent: #9B8B7E;
+            --light-gray: #E8E4E0;
+            --white: #FFFFFF;
+            --radius: 24px;
+            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--white);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: calc(100% - 4rem);
+            max-width: 1200px;
+            background: rgba(255,255,255,0.92);
+            border: 1px solid rgba(200,190,181,0.35);
+            border-radius: 999px;
+            box-shadow: 0 4px 32px rgba(44,41,37,0.10);
+            backdrop-filter: blur(16px);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.85rem 1.8rem;
+        }
+
+        .logo {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--dark);
+            text-decoration: none;
+            white-space: nowrap;
+            flex: 1;
+        }
+
+        .header-nav-center {
+            display: flex;
+            flex: 2;
+            justify-content: center;
+        }
+
+        nav ul { display: flex; list-style: none; gap: 2.2rem; }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 0.9rem;
+            position: relative;
+            transition: color var(--transition);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width var(--transition);
+        }
+
+        nav a:hover::after, .nav-active::after { width: 100%; }
+
+        .header-contact-btn {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .contact-us-btn {
+            padding: 0.55rem 1.3rem;
+            background: #6A5D52;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: background var(--transition), transform var(--transition);
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .contact-us-btn:hover { background: #d3cbc3; transform: translateY(-1px); }
+
+        body { padding-top: 80px; }
+
+        .section { display: none; animation: fadeIn 0.6s ease-in; }
+        .section.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-banner {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            border-radius: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-banner img { width: 100%; height: 100%; object-fit: cover; }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(28,28,27,0.3), rgba(28,28,27,0.3));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .business-name {
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: white;
+            text-align: center;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+        }
+
+        .cta-button {
+            padding: 1rem 3rem;
+            font-size: 1.4rem;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            background: #6A5D52;
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all var(--transition);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            background: #9a8b7e;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .featured { 
+            max-width: 1400px; 
+            margin: 8rem auto 8rem auto; 
+            padding: 0 2rem; }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ===== PRODUCT CARD ===== */
+        .product-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform var(--transition), box-shadow var(--transition);
+            border: 1px solid var(--light-gray);
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(44,41,37,0.08);
+        }
+
+        .product-card:active {
+            transform: scale(0.96);
+            box-shadow: 0 6px 16px rgba(44,41,37,0.12);
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+        }
+
+        .product-image {
+            width: 100%;
+            background: var(--light-gray);
+            overflow: hidden;
+            border-radius: 16px;
+            margin: 0;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .product-card:hover .product-image img { transform: scale(1.05); }
+        .product-info { padding: 1.1rem 1.5rem; text-align: left; }
+        .product-name { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .product-see-details {
+            font-size: 0.82rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+
+        .banner {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            border-radius: var(--radius);
+            max-width: 1350px;
+            margin: 2rem auto 10rem;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .carousel-slide.active { opacity: 1; }
+        .carousel-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        .carousel-controls {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dot.active { background: white; }
+
+        .about {
+            max-width: 1400px;
+            margin: 4rem auto 8rem auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            
+        }
+
+        .about h3 { font-size: 2.2rem; font-weight: 300; letter-spacing: 1px; margin-bottom: 1.5rem; }
+        .about p { color: var(--accent); line-height: 1.8; margin-bottom: 1rem; font-size: 1.2rem; }
+
+        .about-image {
+            width: 100%;
+            height: 425px;
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .collection-wrapper {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .search-bar-wrapper { margin-bottom: 1.5rem; }
+
+        .product-search {
+            width: 100%;
+            padding: 0.75rem 1.2rem;
+            border-radius: 999px;
+            border: 1.5px solid var(--light-gray);
+            font-size: 0.95rem;
+            color: #6a5d52;
+            outline: none;
+            transition: border-color 0.3s ease;
+            background: #faf8f5;
+        }
+
+        .collection-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 3rem;
+        }
+
+        .filters {
+            background: #faf8f5;
+            padding: 2rem;
+            border-radius: var(--radius);
+            border-color: var(--light-gray);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .filter-group { margin-bottom: 2.5rem; }
+
+        .filter-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            color: #6a5d52  ;
+        }
+
+        .filter-options { display: flex; flex-direction: column; gap: 0.8rem; }
+
+        .filter-options label {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #6a5d52;
+        }
+
+        .filter-options input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #6A5D52;
+        }
+
+        .products-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .page-numbers { display: flex; gap: 0.5rem; }
+
+        .page-number {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light-gray);
+            border: 2px solid transparent;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-weight: 500;
+            padding: 0;
+        }
+
+        .page-number:hover { background: #d3cbc3; color: white; }
+        .page-number.active { background: #6A5D52; color: white; border-color: var(--accent); }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 2.5rem;
+            width: 75%;
+            max-width: 1200px;
+            border-radius: #6a5d52;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-modal {
+            color: var(--accent);
+            font-size: 1.8rem;
+            cursor: pointer;
+            float: right;
+            transition: color var(--transition);
+        }
+
+        .close-modal:hover { color: var(--dark); }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .modal-images { width: 100%; }
+
+        .main-image {
+            width: 100%;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .main-image img { 
+            width: 100%; 
+            object-fit: contain; 
+            animation: fadeIn 0.4s ease; }
+
+        .thumbnail-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        .thumbnail {
+            width: 100%;
+            height: 80px;
+            background: var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all var(--transition);
+        }
+
+        .thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+        .thumbnail.active { border-color: var(--dark); }
+        .thumbnail:hover { border-color: var(--accent); }
+
+        .modal-details h3 { font-size: 1.8rem; margin-bottom: 1.2rem; }
+
+        .message-order-btn-modal {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: #6A5D52;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 22px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .message-order-btn-modal:hover { background:#d3cbc3; transform: translateY(-2px); }
+        .product-specs { margin-top: 0.5rem; }
+        .spec-row { margin-bottom: 1.1rem; }
+
+        .spec-label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--dark);
+            margin-bottom: 0.45rem;
+        }
+
+        /* ===== LAYOUT A & B SHARED TWO-COLUMN ROW ===== */
+        .spec-row-a, .spec-row-b {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        .spec-row-a:last-child, .spec-row-b:last-child { border-bottom: none; }
+
+        .spec-col-left {
+            min-width: 140px;
+            max-width: 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            padding-top: 0.1rem;
+        }
+
+        .spec-label-b {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: var(--dark);
+        }
+
+        .spec-avail-note {
+            font-size: 0.68rem;
+            color: #bbb;
+            font-style: italic;
+        }
+
+        .spec-col-right { flex: 1; }
+
+        /* ===== LAYOUT A ===== */
+        .spec-chosen-val {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .spec-other-vals {
+            font-size: 0.76rem;
+            color: #9b8b7e;
+        }
+
+        /* ===== LAYOUT B ===== */
+        .spec-circles-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            align-items: flex-start;
+        }
+
+        .spec-circle-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            transition: opacity 0.2s;
+        }
+
+        .spec-circle-item.spec-circle-active { opacity: 1; }
+
+        .spec-circle-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 25%;
+            background: transparent;
+            border: 2px solid transparent;
+        }
+
+        .spec-circle-item.spec-circle-active .spec-circle-img {
+            border-color: #FFFFFF;
+            box-shadow: 0 0 0 2px #6A5D52;
+        }
+
+        .spec-circle-label {
+            font-size: 0.65rem;
+            color: var(--accent);
+            text-align: center;
+            max-width: 60px;
+            line-height: 1;
+        }
+
+        .spec-circle-item.spec-circle-active .spec-circle-label {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .spec-others-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            margin-bottom: 0.9rem;
+            padding-bottom: 0.9rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .spec-others-row:last-child { border-bottom: none; }
+
+        .spec-others-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--dark);
+            min-width: 90px;
+            padding-top: 0.1rem;
+        }
+
+        .spec-others-value { 
+            font-size: 0.88rem; 
+            color: #2c2933; 
+            line-height: 1.5; 
+            font-weight: 600; 
+        }
+
+        .featured-carousel-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feat-arrow {
+            background: var(--white);
+            border: 1.5px solid var(--light-gray);
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            font-size: 1.6rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all var(--transition);
+            color: var(--dark);
+            box-shadow: 0 2px 8px rgba(44,41,37,0.08);
+        }
+
+        .feat-arrow:hover { background: var(--dark); color: var(--white); border-color: var(--dark); }
+
+        #featuredGrid {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .spec-subtitle-note {
+            font-size: 0.68rem;
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .filter-group:last-child { margin-bottom: 0; }
+
+        .main-image-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .main-image-wrapper .main-image {
+            margin-bottom: 0;
+        }
+
+        .img-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: all 0.2s ease;
+            color: var(--dark);
+            z-index: 10;
+        }
+
+        .img-nav-btn:hover { background: var(--dark); color: white; }
+        .img-nav-btn.prev { left: 8px; }
+        .img-nav-btn.next { right: 8px; }
+        .img-nav-btn[disabled] { opacity: 0.3; cursor: default; }
+
+        /* ===== INQUIRE HERE BUTTON ===== */
+        .message-order-btn-modal {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: #6A5D52;
+            color: #ffffff;
+            border: 1px solid var(--light-gray);
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.5px;
+        }
+
+        .message-order-btn-modal:hover { background: #927f70; transform: translateY(-2px); }
+
+        .spec-others-row:last-child { border-bottom: 1px solid var(--light-gray); }
+
+        
+        .faq-container { max-width: 900px; margin: 3rem auto; padding: 0 2rem; }
+        .faq-item { margin-bottom: 1.5rem; border-bottom: 1px solid var(--light-gray); padding-bottom: 1.5rem; }
+
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color var(--transition);
+        }
+
+        .faq-question:hover { color: var(--accent); }
+        .faq-icon { transition: transform var(--transition); }
+        .faq-item.open .faq-icon { transform: rotate(180deg); }
+        .faq-answer { display: none; margin-top: 1rem; color: #6A5D52; line-height: 1.8; }
+        .faq-item.open .faq-answer { display: block; }
+
+        .contact-container { max-width: 1000px; margin: 3rem auto; padding: 0 2rem; }
+
+        .contact-options {
+            display: grid;
+            grid-template-columns: repeat(4, 0.8fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .contact-icon-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 0.9rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-icon-link:hover { opacity: 0.6; }
+
+        .contact-icon { width: 65px; height: 65px; object-fit: contain; border-radius: 45px;}
+
+        .map-container { margin-top: 3rem; border-radius: 12px; overflow: hidden; }
+        .map-link { width: 100%; height: 450px; border: none; }
+
+        footer { 
+            background: #6A5D52; 
+            color: #FFFFFF; 
+            padding: 3rem 1.2rem 1.2rem; 
+            margin-top: 6rem; 
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto 0.2rem;
+            display: grid;
+            grid-template-columns: 1.5fr 0.5fr 0.5fr;
+            gap: 4rem;
+        }
+
+        .footer-column { display: flex; flex-direction: column; }
+        .footer-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 1.5rem; letter-spacing: 1px; }
+        .footer-desc { font-size: 0.99rem; line-height: 1.6; margin-bottom: 1.5rem; color: #EDE6D8; }
+
+        .social-icons { display: flex; gap: 1rem; }
+        .social-icon img { width: 40px; height: 40px; transition: transform 0.3s ease; }
+        .social-icon:hover img { transform: scale(1.1); }
+
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a { color: #EDE6D8; text-decoration: none; transition: color 0.3s ease; }
+        .footer-links a:hover { color: #FFFFFF; }
+        .footer-contact { font-size: 0.95rem; color: #EDE6D8; margin-bottom: 1rem; }
+
+        /* ===== TABLET & MOBILE LAYOUT ===== */
+        @media (max-width: 768px) {
+            header { top: 10px; width: calc(100% - 1.5rem); border-radius: 20px; }
+            .header-container { padding: 0.8rem 1.2rem; flex-wrap: wrap; justify-content: space-between; gap: 0.8rem; }
+            .logo { font-size: 1rem; flex: 1; text-align: left; }
+            .header-contact-btn { flex: 1; justify-content: flex-end; margin-top: 0; }
+            .contact-us-btn { padding: 0.4rem 1rem; font-size: 0.8rem; }
+            .header-nav-center { order: 3; flex: 100%; }
+            nav ul { gap: 1.5rem; justify-content: center; }
+            body { padding-top: 125px; }
+
+            .hero-banner { height: 400px; }
+            .business-name { font-size: 2.5rem; letter-spacing: 2px; }
+            .banner { height: 350px; }
+            
+            .about { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 1rem; }
+            .collection-container { grid-template-columns: 1fr; gap: 1.5rem; }
+            .filters { position: static; padding: 1.5rem; }
+            
+            .products-grid, .products-section { 
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+                gap: 1rem; 
+            }
+            .product-info { padding: 0.8rem; }
+            .product-name { font-size: 0.9rem; }
+            
+            .modal-content { width: 95%; padding: 1.5rem; margin: 15% auto; }
+            .modal-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            
+            .spec-row-a, .spec-row-b, .spec-others-row { 
+                flex-direction: column; 
+                gap: 0.5rem; 
+            }
+            .spec-col-left { min-width: 100%; max-width: 100%; padding-bottom: 0.5rem; }
+            
+            .contact-options { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+            .footer-content { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; } 
+            .social-icons { justify-content: center; }
+        }
+
+        /* SMALL PHONE LAYOUT */
+        @media (max-width: 480px) {
+            nav ul { gap: 1rem; font-size: 0.85rem; }
+            body { padding-top: 115px; }
+            .logo { font-size: 0.85rem; }
+            .contact-us-btn { padding: 0.35rem 0.75rem; font-size: 0.75rem; }
+            .hero-banner { height: 300px; }
+            .business-name { font-size: 2rem; }
+            .banner { height: 250px; }
+            
+            .featured { padding: 0 1rem; margin: 4rem auto; }
+            .section-title { font-size: 1.6rem; margin-bottom: 2rem; }
+            
+            .products-grid, .products-section { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+            
+            .modal-content { padding: 1.2rem; margin: 20% auto; }
+            .main-image { max-height: 300px; } 
+            .spec-circle-img { width: 34px; height: 34px; }
+            
+            .contact-options { grid-template-columns: 1fr; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">SINING NI PEPING</a>
+            <div class="header-nav-center">
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link nav-active" data-section="home">Home</a></li>
+                        <li><a href="#" class="nav-link" data-section="collection">Collection</a></li>
+                        <li><a href="#" class="nav-link" data-section="faq">FAQs</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="header-contact-btn">
+                <a class="contact-us-btn nav-link" href="#" data-section="contact">Contact Us</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== HOME ===== -->
+    <section id="home" class="section active">
+
+        <div class="hero-banner">
+            <img src="unknown (1).jpg" alt="Hero Product">
+            <div class="hero-overlay">
+                <h1 class="business-name">Sining ni Peping</h1>
+            </div>
+        </div>
+
+        <div class="featured">
+            <h2 class="section-title"><b>Featured Collection</b></h2>
+            <div class="featured-carousel-wrapper">
+                <div class="products-grid" id="featuredGrid">
+                    <div class="product-card" data-feat-id="1" onclick="openModal(64)">
+                        <div class="product-image"><img src="lumina A 3x6.png" alt="Product"></div>
+                        <div class="product-info"><div class="product-name">Lumina I (3x6)</div><div class="product-see-details">See Details &rsaquo;</div></div>
+                    </div>
+                    <div class="product-card" data-feat-id="2" onclick="openModal(80)">
+                        <div class="product-image"><img src="neutrals 2x4 (2).png" alt="Product"></div>
+                        <div class="product-info"><div class="product-name">Neutrals (2x4)</div><div class="product-see-details">See Details &rsaquo;</div></div>
+                    </div>
+                    <div class="product-card" data-feat-id="3" onclick="openModal(93)">
+                        <div class="product-image"><img src="natural burnt 3x5.png" alt="Product"></div>
+                        <div class="product-info"><div class="product-name">Natural Burnt Mosaic (3x5)</div><div class="product-see-details">See Details &rsaquo;</div></div>
+                    </div>
+                    <div class="product-card" data-feat-id="4" onclick="openModal(49)">
+                        <div class="product-image"><img src="wm jana C 3x8 (1).png" alt="Product"></div>
+                        <div class="product-info"><div class="product-name">Jana III</div><div class="product-see-details">See Details &rsaquo;</div></div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:1rem;">
+                <button class="cta-button" onclick="switchSection('collection')">All Products</button>
+            </div>
+        </div>
+
+        <div class="about">
+            <div>
+                <h3>About Us</h3>
+                <p>Based in Calamba, Laguna, an art brand specializing in handmade, custom wood mosaic wall art and decor, often featuring intricate geometric patterns and abstracts.</p>
+                <p>Created by a local artist, these unique pieces utilize various wood scraps and stains to create textured, aesthetic, and functional home decor.</p>
+            </div>
+            <div class="about-image"><img src="sining.jpg" alt="About"></div>
+        </div>
+
+        <div class="gallery-section">
+            <h2 class="section-title"><b>From Our Customers</b></h2>
+            <div class="banner">
+                <div class="carousel-slide active">
+                    <img src="cust/feat1.png" alt="Customer 1">
+                </div>
+                <div class="carousel-slide">
+                    <img src="cust/feat2.png" alt="Customer 2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="cust/feat3.png" alt="Customer 3">
+                </div>
+                <div class="carousel-slide">
+                    <img src="cust/feat4.png" alt="Customer 4">
+                </div>
+                <div class="carousel-slide">
+                    <img src="cust/feat5.png" alt="Customer 4">
+                </div>
+                <div class="carousel-slide">
+                    <img src="cust/feat6.png" alt="Customer 4">
+                </div>
+                <div class="carousel-slide">
+                    <img src="cust/feat7.png" alt="Customer 4">
+                </div>
+                <div class="carousel-slide">
+                    <img src="cust/feat8.png" alt="Customer 4">
+                </div>
+                <div class="carousel-slide">
+                    <img src="cust/feat9.png" alt="Customer 4">
+                </div>
+                <div class="carousel-slide">
+                    <img src="cust/feat10.png" alt="Customer 4">
+                </div>
+                
+                <button class="img-nav-btn prev" onclick="changeSlide(-1)">‹</button>
+                <button class="img-nav-btn next" onclick="changeSlide(1)">›</button>
+
+                <div class="carousel-controls">
+                    <span class="dot active" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                    <span class="dot" onclick="currentSlide(5)"></span>
+                    <span class="dot" onclick="currentSlide(6)"></span>
+                    <span class="dot" onclick="currentSlide(7)"></span>
+                    <span class="dot" onclick="currentSlide(8)"></span>
+                    <span class="dot" onclick="currentSlide(9)"></span>
+                    <span class="dot" onclick="currentSlide(10)"></span>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ===== COLLECTION ===== -->
+    <section id="collection" class="section">
+        <div class="collection-wrapper">
+            <div class="search-bar-wrapper">
+                <input type="text" id="productSearch" class="product-search" placeholder="Search products...">
+            </div>
+            <div class="collection-container">
+                <div class="filters">
+                    <div class="filter-group">
+                        <div class="filter-title">DESIGNS</div>
+                        <div class="filter-options">
+                            <label><input type="checkbox" class="filter-check" value="Last Supper"> Last Supper</label>
+                            <label><input type="checkbox" class="filter-check" value="Pieces of Wood"> Pieces of Wood</label>
+                            <label><input type="checkbox" class="filter-check" value="Wood Mosaic"> Wood Mosaic</label>
+                            <label><input type="checkbox" class="filter-check" value="Wooden Cross"> Wooden Cross</label>
+                            <label><input type="checkbox" class="filter-check" value="Others"> Others</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="products-section" id="productsGrid"></div>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <div class="page-numbers" id="pageNumbers"></div>
+        </div>
+    </section>
+
+    <section id="faq" class="section">
+        <div class="faq-container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-item"><div class="faq-question"><span>What is the wood mosaic made of?</span><span class="faq-icon">▼</span></div><div class="faq-answer">We use high-quality pinewood and different kind of hardwood (such as madre de cacao, mahogany, yakal, narra, traviesa, and acacia), and the surface is termite treated with environmentally friendly coatings, preserving the natural wood grain.</div></div>
+            <div class="faq-item"><div class="faq-question"><span>Is it easy to install?</span><span class="faq-icon">▼</span></div><div class="faq-answer">It's very simple. Each product comes with an expansion bolt, screws and installation takes only a few minutes.</div></div>
+            <div class="faq-item"><div class="faq-question"><span>Do you support customization?</span><span class="faq-icon">▼</span></div><div class="faq-answer">Yes, we do customization depending on your desired size requirements. If you require specific sizes, please <a href="#" onclick="switchSection('contact')">contact</a> our customer service team directly for details.</div></div>
+            <div class="faq-item"><div class="faq-question"><span>How to maintain wood finishes?</span><span class="faq-icon">▼</span></div><div class="faq-answer">It is strongly suggested to avoid prolonged exposure to direct sunlight or overly humid environments. When cleaning, simply wipe away dust gently with a feather duster or a dry, soft cloth.</div></div>
+            <div class="faq-item"><div class="faq-question"><span>Is there a difference between the actual product and the pictures?</span><span class="faq-icon">▼</span></div><div class="faq-answer">There is a minimal difference due to the natural characteristics of wood, the grain and color of each piece of wood are slightly different, which is precisely what makes each wooden decoration unique and charming.</div></div>
+            <div class="faq-item"><div class="faq-question"><span>How long does it take for the order to be shipped after it's placed?</span><span class="faq-icon">▼</span></div><div class="faq-answer">On-hand stock products are usually shipped within the day or <b>2</b> days; custom-made products require <b>5-7</b> business days for production.</div></div>
+            <div class="faq-item"><div class="faq-question"><span>How much is the shipping cost?</span><span class="faq-icon">▼</span></div><div class="faq-answer">Shipping costs depends based on the preferred courier (Lalamove, LBC or J&T).<br><b>For NCR/Laguna area,</b> Lalamove is recommended.<br><b>For Luzon area,</b> we strongly recommend Victory Liner Drop &amp; Go Courier service which will take 2-3 days upon order drop off.<br><b>For Visayas and Mindanao area,</b> LBC and J&T are our preferred courier service.</div></div>
+            <div class="faq-item"><div class="faq-question"><span>What payment methods are supported?</span><span class="faq-icon">▼</span></div><div class="faq-answer">Payment methods are through <b>bank transfer or GCash. </b></div></div>
+            <div class="faq-item"><div class="faq-question"><span>What should I do if I receive a damaged item?</span><span class="faq-icon">▼</span></div><div class="faq-answer">Please take photos and contact us within 48 hours of receiving the package. If the item is damaged during shipping, we will resend it to you free of charge or issue a refund.</div></div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="contact-container">
+            <h2 class="section-title">Contact Us</h2>
+
+            <div class="contact-options">
+                <a href="https://www.facebook.com/profile.php?id=100095777612310" class="contact-icon-link">
+                    <img src="soc/10.png" alt="Facebook" class="contact-icon">
+                    <span>Facebook</span>
+                </a>
+                <a href="https://shopee.ph/loriefortuno" class="contact-icon-link">
+                    <img src="soc/11.png" alt="Shopee" class="contact-icon">
+                    <span>Shopee</span>
+                </a>
+                <a href="https://vt.tiktok.com/ZS9YEpAQj/?page=TikTokShop" class="contact-icon-link" target="_blank">
+                    <img src="soc/12.png" alt="Tiktok" class="contact-icon">
+                    <span>Tiktok Shop</span>
+                </a>
+                <a class="contact-icon-link" target="_blank">
+                    <img src="soc/13.png" alt="Contact" class="contact-icon">
+                    <span>0939 912 2557</span>
+                </a>
+            </div>
+
+            <div class="map-container">
+                <iframe class="map-link" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4084.21864825783!2d121.14015157527645!3d14.21411648642169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd63b3716c31f3%3A0xe3bcfd48345c821!2sLandmark%20Subdivision!5e1!3m2!1sen!2sph!4v1777028744352!5m2!1sen!2sph" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-grid">
+                <div class="modal-images">
+                    <div class="main-image-wrapper">
+                        <div class="main-image"><img id="mainImage" src="" alt="Product"></div>
+                        <button class="img-nav-btn prev" id="imgNavPrev" onclick="navigateModalImage(-1)">&#8249;</button>
+                        <button class="img-nav-btn next" id="imgNavNext" onclick="navigateModalImage(1)">&#8250;</button>
+                    </div>
+                    <div class="thumbnail-gallery" id="thumbnailGallery"></div>
+                </div>
+                <div class="modal-details">
+                    <h3 id="modalName"></h3>
+                    <div id="productSpecs" class="product-specs"></div>
+                    <button class="message-order-btn-modal" onclick="messageToOrder()">
+                        Inquire Here
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="footer-title">Sining ni Peping</h3>
+                <p class="footer-desc">Custom, locally made wood mosaic wall art, our pieces are made from various wood <br> scraps to create unique, sometimes geometric and aesthetic designs.</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/profile.php?id=100095777612310" class="social-icon"><img src="soc/facebook.png" alt="Facebook"></a>
+                    <a href="https://shopee.ph/loriefortuno" class="social-icon"><img src="soc/shopee.png" alt="Shopee"></a>
+                    <a href="https://vt.tiktok.com/ZS9YEpAQj/?page=TikTokShop" class="social-icon"><img src="soc/tiktok.png" alt="TikTok Shop"></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-title">Navigation</h3>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="switchSection('home')">Home</a></li>
+                    <li><a href="#" onclick="switchSection('collection')">Collection</a></li>
+                    <li><a href="#" onclick="switchSection('faq')">FAQs</a></li>
+                    <li><a href="#" onclick="switchSection('contact')">Order Here</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-title">Contact</h3>
+                <p class="footer-contact">+63 939 912 2557</p>
+                <p class="footer-contact">+63 919 910 4425</p>
+                <p class="footer-contact">walterfortuno@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    /* =======================================================
+       LAST SUPPER:
+         frame: "Light" | "Dark" | "Black" 
+         head: "Light" | Natural" | "Dark" | "Burnt Wood"
+         body: "Light" | "Natural" | "Multi-Color"
+         table: "Light" | "Natural" | "Dark" | "Black"
+         table cloth: "None" | "Light" | "Black"
+         background: "Natural" | "Dark" | "Black"
+         chalice: "None" | "Light" | "Dark" | "Black"
+         size: "1.5x3" | "2x4" | "3x6"
+
+       PIECES OF WOOD:
+         frame: "None" | "Light" | "Black"
+         color: "Light" | "Dark"
+         backlight: "With Backlight" | "Without Backlight"
+         sizeValue: <your custom size text>
+
+       WOOD MOSAIC:
+         frame: "None" | "Light" | "Dark" | "Black" | "Burnt"
+         colorCombination: "1-Color" | "2-Color" | "3-Color" | "4-Color" | "5-Color" | "6-Color" | "7-Color" | "8-Color" | "More than 8 colors"
+         blocksPlacement: "None" | "Gradient (Airbrushed)" | "Gradient (Overlapping)" | "Gradient (Non-Overlapping)" | "Scattered" | "Customized"
+         pattern: "Plain" | "Burnt" | "Mixed"
+         sizeValue: <your custom size text>
+
+       WOODEN CROSS:
+         woodColor: "Light" | "Dark"
+         backlight: "Yellow or Warm" | "White" | "Blue" | "Purple" | "Green" | "Red"
+         (size is fixed as "45cm x 45cm (not customizable)")
+
+       OTHERS — up to 6 items:
+         specs: [ { title: "Size", value: "24cmx24cm" }, ... ]
+    ======================================================= */
+
+    // Map your options to their specific image files here!
+    const optionImages = {
+        'None': 'desc/none.png',
+        'Light': 'desc/light.png',
+        'Dark': 'desc/dark.png',
+        'Black': 'desc/black.png',
+        'Natural': 'desc/natural.png',
+        'Burnt': 'desc/burnt wood.png',
+        'Burnt Wood': 'desc/burnt wood.png',
+        'Gradient (Airbrushed)': 'desc/airbrushed.png',
+        'Gradient (Overlapping)': 'desc/overlapping.png',
+        'Gradient (Non-Overlapping)': 'desc/non overlapping.png',
+        'Scattered': 'desc/scattered.png',
+        'Customized': 'desc/customized.png',
+        'Plain': 'desc/light.png',
+        'Multi-Color': 'desc/multi-color.png',
+        'Blue': 'desc/blue.png',
+        'Green': 'desc/green.png',
+        'Purple': 'desc/purple.png',
+        'Red': 'desc/red.png',
+        'Yellow or Warm': 'desc/warm.png',
+        'White': 'desc/white.png'
+    };
+
+    const products = [
+        {
+            id: 1,
+            name: "Soundwaves",
+            type: "Others",
+
+            images: ["soundwaves 2x4.png", "soundwaves 2x4 (1).png"],
+            specs: [
+                { title: "Size", value: "2x4 ft" },
+            ]
+        },
+        {
+            id: 2,
+            name: "Centered 4-Color",
+            type: "Wood Mosaic",
+             
+            images: ["centered 4-color 2x3.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "4-Color",
+                blocksPlacement: "Customized",
+                pattern: "Plain",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 3,
+            name: "Centered Wood Cross",
+            type: "Wood Mosaic",
+             
+            images: ["centered wood cross 2x3.png", "centered wood cross 2x3 (1).png"],
+            specs: {
+                frame: "None",
+                colorCombination: "2-Color",
+                blocksPlacement: "Customized",
+                pattern: "Plain",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 4,
+            name: "Polka Pattern (2x4)",
+            type: "Others",
+             
+            images: ["polka pattern 2x4.png"],
+            specs: [
+                { title: "Size", value: "2x4 ft" },
+                { title: "Frame", value: "With Wood Frame" }
+            ]
+        },
+        {
+            id: 5,
+            name: "Polka Pattern (3x5)",
+            type: "Others",
+             
+            images: ["polka pattern 3x5.png"],
+            specs: [
+                { title: "Size", value: "3x5 ft" },
+                { title: "Frame", value: "With Wood Frame" }
+            ]
+        },
+        {
+            id: 6,
+            name: "Volcanic Pattern",
+            type: "Others",
+             
+            images: ["volcanic pattern 2x4.png"],
+            specs: [
+                { title: "Size", value: "2x4 ft" },
+                { title: "Frame", value: "With Black Frame" }
+            ]
+        },
+        {
+            id: 7,
+            name: "Mirror with Drift Wood Edges",
+            type: "Others",
+             
+            images: ["mirror with drift wood edges 2x3.png", "mirror with drift wood edges 2x3 (1).png"],
+            specs: [
+                { title: "Size", value: "2x3 ft" }
+            ]
+        },
+        {
+            id: 8,
+            name: "Set of Three (1x3)",
+            type: "Wood Mosaic",
+             
+            images: ["set of 3 1x3.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "3-Color",
+                blocksPlacement: "Gradient (Airbrushed)",
+                pattern: "Plain",
+                sizeValue: "1x3 ft"
+            }
+        },
+        {
+            id: 9,
+            name: "Black to Blue",
+            type: "Wood Mosaic",
+             
+            images: ["black to blue 3x4.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "3-Color",
+                blocksPlacement: "Gradient (Airbrushed)",
+                pattern: "Plain",
+                sizeValue: "3x4 ft"
+            }
+        },
+        {
+            id: 10,
+            name: "Astra Orange",
+            type: "Wood Mosaic",
+             
+            images: ["wm astra orange 2x3.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "2-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 11,
+            name: "Astra Red",
+            type: "Wood Mosaic",
+             
+            images: ["wm astra red 2x3.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "2-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 12,
+            name: "Astra Light Orange",
+            type: "Wood Mosaic",
+             
+            images: ["wm astra light orange 2x4.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "2-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 13,
+            name: "Spicy",
+            type: "Wood Mosaic",
+             
+            images: ["wm spicy 2x4.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "3-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 14,
+            name: "Kute I",
+            type: "Wood Mosaic",
+             
+            images: ["wm kute A 2x5.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "3-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x5 ft"
+            }
+        },
+        {
+            id: 15,
+            name: "Bruno I (2x3)",
+            type: "Wood Mosaic",
+             
+            images: ["wm bruno A 2x3.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "4-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 16,
+            name: "Bruno I (Burnt)",
+            type: "Wood Mosaic",
+             
+            images: ["wm bruno A burnt 2x3.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "4-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Burnt",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 17,
+            name: "Bruno I (3x4)",
+            type: "Wood Mosaic",
+             
+            images: ["wm bruno A 3x4.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "4-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x4 ft"
+            }
+        },
+        {
+            id: 18,
+            name: "Bruno III",
+            type: "Wood Mosaic",
+             
+            images: ["wm bruno C 3x3.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "4-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x3 ft"
+            }
+        },
+        {
+            id: 19,
+            name: "Bruno I (3x5)",
+            type: "Wood Mosaic",
+             
+            images: ["wm bruno A 3x5 (1).png", "wm bruno A 3x5 (2).png", "wm bruno A 3x5 (3).png", "wm bruno A 3x5 (4).png", "wm bruno A 3x5 (5).png"],
+            specs: {
+                frame: "None",
+                colorCombination: "4-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x5 ft"
+            }
+        },
+        {
+            id: 20,
+            name: "Bruno II",
+            type: "Wood Mosaic",
+             
+            images: ["wm bruno B 2x3.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "4-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 21,
+            name: "Kute III",
+            type: "Wood Mosaic",
+             
+            images: ["wm kute B 2.5x8.png", "wm kute B 2.5x8 (1).png"],
+            specs: {
+                frame: "None",
+                colorCombination: "3-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2.5x8 ft"
+            }
+        },
+        {
+            id: 22,
+            name: "Shades of Blue",
+            type: "Wood Mosaic",
+             
+            images: ["shades of blue 2x4.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "3-Color",
+                blocksPlacement: "Gradient (Airbrushed)",
+                pattern: "Plain",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 23,
+            name: "Shades of Red",
+            type: "Wood Mosaic",
+             
+            images: ["shades of red 2x4.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "3-Color",
+                blocksPlacement: "Gradient (Airbrushed)",
+                pattern: "Plain",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 24,
+            name: "Shades of Green",
+            type: "Wood Mosaic",
+             
+            images: ["shades of green 2x4.png", "shades of green 2x4 (1).png"],
+            specs: {
+                frame: "None",
+                colorCombination: "3-Color",
+                blocksPlacement: "Gradient (Airbrushed)",
+                pattern: "Plain",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 25,
+            name: "Shades of Muted Violet",
+            type: "Wood Mosaic",
+             
+            images: ["shades of muted violet 2x4.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "3-Color",
+                blocksPlacement: "Gradient (Airbrushed)",
+                pattern: "Plain",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 26,
+            name: "Centered Pink Cross",
+            type: "Wood Mosaic",
+             
+            images: ["centered pink cross 2x3.png", "centered pink cross 2x3 (1).png", "centered pink cross 2x3 (2).png"],
+            specs: {
+                frame: "None",
+                colorCombination: "2-Color",
+                blocksPlacement: "Customized",
+                pattern: "Plain",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 27,
+            name: "Rectangle Wood Blocks I",
+            type: "Others",
+             
+            images: ["wooden rectangle blocks 2x4.png", "wooden rectangle blocks 2x4 (1).png"],
+            specs: [
+                { title: "Size", value: "2x4 ft" },
+                { title: "Frame", value: "None" },
+            ]
+        },
+        {
+            id: 28,
+            name: "Bravo I",
+            type: "Wood Mosaic",
+             
+            images: ["wm bravo A 3x4.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x4 ft"
+            }
+        },
+        {
+            id: 29,
+            name: "Bravo II",
+            type: "Wood Mosaic",
+             
+            images: ["wm bravo B 2x5.png", "wm bravo B 2x5 (1).png", "wm bravo B 2x5 (2).png"],
+            specs: {
+                frame: "Burnt",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x5 ft"
+            }
+        },
+        {
+            id: 30,
+            name: "Bravo III",
+            type: "Wood Mosaic",
+             
+            images: ["wm bravo C 4x7.png"],
+            specs: {
+                frame: "Burnt",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "4x7 ft"
+            }
+        },
+        {
+            id: 31,
+            name: "Bravo IV",
+            type: "Wood Mosaic",
+             
+            images: ["wm bravo D 4x8.png"],
+            specs: {
+                frame: "Burnt",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "4x8 ft"
+            }
+        },
+        {
+            id: 32,
+            name: "Bravo V",
+            type: "Wood Mosaic",
+             
+            images: ["wm bravo E 5x6.png"],
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Mixed",
+                sizeValue: "5x6 ft"
+            }
+        },
+        {
+            id: 33,
+            name: "Otom",
+            type: "Wood Mosaic",
+             
+            images: ["wm otom A 2x4.png", "wm otom A 2x4 (1).png"],
+            specs: {
+                frame: "None",
+                colorCombination: "3-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 34,
+            name: "Chale I",
+            type: "Wood Mosaic",
+             
+            images: ["wm chale A 3x4.png", "wm chale A 3x4 (1).png", "wm chale A 3x4 (2).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "4-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x4 ft"
+            }
+        },
+        {
+            id: 35,
+            name: "Chale II",
+            type: "Wood Mosaic",
+             
+            images: ["wm chale B 3x5.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "4-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x5 ft"
+            }
+        },
+        {
+            id: 36,
+            name: "Cali I",
+            type: "Wood Mosaic",
+             
+            images: ["wm cali A 3x5.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x5 ft"
+            }
+        },
+        {
+            id: 37,
+            name: "Cali II",
+            type: "Wood Mosaic",
+             
+            images: ["wm cali B 2x4.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 38,
+            name: "Cali III",
+            type: "Wood Mosaic",
+             
+            images: ["wm cali C 3x8.png", "wm cali C 3x8 (1).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x8 ft"
+            }
+        },
+        {
+            id: 39,
+            name: "Cali IV (3x4)",
+            type: "Wood Mosaic",
+             
+            images: ["wm cali D 3x4.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x4 ft"
+            }
+        },
+        {
+            id: 40,
+            name: "Cali IV (3x5)",
+            type: "Wood Mosaic",
+             
+            images: ["wm cali D 3x5.png", "wm cali D 3x5 (1).png", "wm cali D 3x5 (2).png", "wm cali D 3x5 (3).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x5 ft"
+            }
+        },
+        {
+            id: 41,
+            name: "Cali IV (3x6)",
+            type: "Wood Mosaic",
+             
+            images: ["wm cali D 3x6.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x6 ft"
+            }
+        },
+        {
+            id: 42,
+            name: "Cali IV (4x8)",
+            type: "Wood Mosaic",
+             
+            images: ["wm cali D 4x8.png", "wm cali D 4x8 (1).png", "wm cali D 4x8 (2).png", "wm cali D 4x8 (3).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "4x8 ft"
+            }
+        },
+        {
+            id: 43,
+            name: "Cali V (3x5)",
+            type: "Wood Mosaic",
+             
+            images: ["wm cali E 3x5.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x5 ft"
+            }
+        },
+        {
+            id: 44,
+            name: "Cali V (3x6)",
+            type: "Wood Mosaic",
+             
+            images: ["wm cali E 3x6.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x6 ft"
+            }
+        },
+        {
+            id: 45,
+            name: "Cali VI (3x5)",
+            type: "Wood Mosaic",
+             
+            images: ["wm cali F 3x5.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x5 ft"
+            }
+        },
+        {
+            id: 46,
+            name: "Cali VI (4x8)",
+            type: "Wood Mosaic",
+             
+            images: ["wm cali G 4x8.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "4x8 ft"
+            }
+        },
+        {
+            id: 47,
+            name: "Jana I",
+            type: "Wood Mosaic",
+             
+            images: ["wm jana A 2x4.png", "wm jana A 2x4 (1).png", "wm jana A 2x4 (2).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "7-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 48,
+            name: "Jana II",
+            type: "Wood Mosaic",
+             
+            images: ["wm jana B 2x5 (3).png", "wm jana B 2x5.png", "wm jana B 2x5 (1).png", "wm jana B 2x5 (2).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "7-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x5 ft"
+            }
+        },
+        {
+            id: 49,
+            name: "Jana III",
+            type: "Wood Mosaic",
+             
+            images: ["wm jana C 3x8.png", "wm jana C 3x8 (1).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "7-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x8 ft"
+            }
+        },
+        {
+            id: 50,
+            name: "Jana IV (2x4)",
+            type: "Wood Mosaic",
+             
+            images: ["wm jana D burnt 2x4.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "7-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Burnt",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 51,
+            name: "Jana IV (2.5x5)",
+            type: "Wood Mosaic",
+             
+            images: ["wm jana D burnt 2.5x5.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "7-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Burnt",
+                sizeValue: "2.5x5 ft"
+            }
+        },
+        {
+            id: 52,
+            name: "Jana IV (2.5x6)",
+            type: "Wood Mosaic",
+             
+            images: ["wm jana D burnt 2.5x6.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "7-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Burnt",
+                sizeValue: "2.5x6 ft"
+            }
+        },
+        {
+            id: 54,
+            name: "Jana V",
+            type: "Wood Mosaic",
+             
+            images: ["wm jana E 3x6.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "8-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x6 ft"
+            }
+        },
+        {
+            id: 55,
+            name: "Jana VI",
+            type: "Wood Mosaic",
+             
+            images: ["wm jana F 3x5.png", "wm jana F 3x5 (1).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "More than 8 colors",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x5 ft"
+            }
+        },
+        {
+            id: 53,
+            name: "Kiko I",
+            type: "Wood Mosaic",
+             
+            images: ["wm kiko A 3x4.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "7-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x4 ft"
+            }
+        },
+
+        {
+            id: 57,
+            name: "Kiko II",
+            type: "Wood Mosaic",
+             
+            images: ["wm kiko B 2x3.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "6-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 60,
+            name: "Tonio I",
+            type: "Wood Mosaic",
+             
+            images: ["wm tonio A 2x4.png", "wm tonio A 2x4 (1).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "6-Color",
+                blocksPlacement: "Gradient (Non-Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 61,
+            name: "Tonio II",
+            type: "Wood Mosaic",
+             
+            images: ["wm tonio B 3x5.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "6-Color",
+                blocksPlacement: "Gradient (Non-Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x5 ft"
+            }
+        },
+        {
+            id: 62,
+            name: "Russell I",
+            type: "Wood Mosaic",
+             
+            images: ["wm russel A 2x3.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "7-Color",
+                blocksPlacement: "Gradient (Non-Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 63,
+            name: "Russell II",
+            type: "Wood Mosaic",
+             
+            images: ["wm russel B 2x4.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "7-Color",
+                blocksPlacement: "Gradient (Non-Overlapping)",
+                pattern: "Plain",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 139,
+            name: "Russell III (3x4)",
+            type: "Wood Mosaic",
+             
+            images: ["wm russel C 3x4.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Non-Overlapping)",
+                pattern: "Plain",
+                sizeValue: "3x4 ft"
+            }
+        },
+        {
+            id: 56,
+            name: "Russell III (5x10)",
+            type: "Wood Mosaic",
+             
+            images: ["wm russel C 5x10.png", "wm russel C 5x10 (1).png"], 
+            specs: {
+                frame: "Black",
+                colorCombination: "7-Color",
+                blocksPlacement: "Gradient (Non-Overlapping)",
+                pattern: "Plain",
+                sizeValue: "5x10 ft"
+            }
+        },
+        {
+            id: 64,
+            name: "Lumina I (3x6)",
+            type: "Wood Mosaic",
+             
+            images: ["lumina A 3x6.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "8-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Mixed",
+                sizeValue: "3x6 ft"
+            }
+        },
+        {
+            id: 65,
+            name: "Lumina I (6x7)",
+            type: "Wood Mosaic",
+             
+            images: ["lumina A 6x7.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "8-Color",
+                blocksPlacement: "Gradient (Non-Overlapping)",
+                pattern: "Mixed",
+                sizeValue: "6x7 ft"
+            }
+        },
+        {
+            id: 66,
+            name: "Lumina II (2x4)",
+            type: "Wood Mosaic",
+             
+            images: ["lumina B 2x4.png", "lumina B 2x4 (1).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Non-Overlapping)",
+                pattern: "Mixed",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 67,
+            name: "Lumina II (3x6)",
+            type: "Wood Mosaic",
+             
+            images: ["lumina B 3x6 (2).png", "lumina B 3x6 (1).png", "lumina B 3x6.png", "lumina B 3x6 (3).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Non-Overlapping)",
+                pattern: "Mixed",
+                sizeValue: "3x6 ft"
+            }
+        },
+        {
+            id: 68,
+            name: "Lumina II (4x8)",
+            type: "Wood Mosaic",
+             
+            images: ["lumina B 4x8 (2).png", "lumina B 4x8 (1).png", "lumina B 4x8.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Non-Overlapping)",
+                pattern: "Mixed",
+                sizeValue: "4x8 ft"
+            }
+        },
+        {
+            id: 69,
+            name: "Lumina III (2x4)",
+            type: "Wood Mosaic",
+             
+            images: ["lumina C 2x4.png", "lumina C 2x4 (2).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "6-Color",
+                blocksPlacement: "Gradient (Non-Overlapping)",
+                pattern: "Mixed",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 70,
+            name: "Lumina III (3x4)",
+            type: "Wood Mosaic",
+             
+            images: ["lumina C 3x4.png", "lumina C 3x4 (1).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "6-Color",
+                blocksPlacement: "Gradient (Non-Overlapping)",
+                pattern: "Mixed",
+                sizeValue: "3x4 ft"
+            }
+        },
+        {
+            id: 71,
+            name: "Lumina IV (2.5x5)",
+            type: "Wood Mosaic",
+             
+            images: ["lumina D 2.5x5.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "7-Color",
+                blocksPlacement: "Gradient (Non-Overlapping)",
+                pattern: "Mixed",
+                sizeValue: "2.5x5 ft"
+            }
+        },
+        {
+            id: 72,
+            name: "Lumina IV (3x6)",
+            type: "Wood Mosaic",
+             
+            images: ["lumina D 3x6.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "7-Color",
+                blocksPlacement: "Gradient (Overlapping)",
+                pattern: "Mixed",
+                sizeValue: "3x6 ft"
+            }
+        },
+        {
+            id: 73,
+            name: "Lumina V",
+            type: "Wood Mosaic",
+             
+            images: ["lumina E 3x6.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Non-Overlapping)",
+                pattern: "Mixed",
+                sizeValue: "3x6 ft"
+            }
+        },
+        {
+            id: 74,
+            name: "Lumina Red",
+            type: "Wood Mosaic",
+             
+            images: ["lumina red 2x4.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Gradient (Non-Overlapping)",
+                pattern: "Mixed",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 75,
+            name: "Mixed Colors (2x3)",
+            type: "Wood Mosaic",
+             
+            images: ["mixed colors 2x3 (3).png", "mixed colors 2x3.png", "mixed colors 2x3 (1).png", "mixed colors 2x3 (2).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "More than 8 colors",
+                blocksPlacement: "Scattered",
+                pattern: "Plain",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 76,
+            name: "Mixed Colors (2x4)",
+            type: "Wood Mosaic",
+             
+            images: ["mixed colors 2x4.png", "mixed colors 2x4 (1).png", "mixed colors 2x4 (2).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "More than 8 colors",
+                blocksPlacement: "Scattered",
+                pattern: "Plain",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 77,
+            name: "Mixed Colors Burnt (2x3)",
+            type: "Wood Mosaic",
+             
+            images: ["mixed colors burnt 2x3.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "More than 8 colors",
+                blocksPlacement: "Scattered",
+                pattern: "Burnt",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 78,
+            name: "Mixed Colors Burnt (2x4)",
+            type: "Wood Mosaic",
+             
+            images: ["mixed colors burnt 2x4 (1).png", "mixed colors burnt 2x4.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "More than 8 colors",
+                blocksPlacement: "Scattered",
+                pattern: "Burnt",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 79,
+            name: "Neutrals (2x3)",
+            type: "Wood Mosaic",
+             
+            images: ["neutrals 2x3.png", "neutrals 2x3 (1).png", "neutrals 2x3 (2).png", "neutrals 2x3 (3).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Scattered",
+                pattern: "Plain",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 80,
+            name: "Neutrals (2x4)",
+            type: "Wood Mosaic",
+             
+            images: ["neutrals 2x4.png", "neutrals 2x4 (1).png", "neutrals 2x4 (2).png", "neutrals 2x4 (3).png", "neutrals 2x4 (4).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "5-Color",
+                blocksPlacement: "Scattered",
+                pattern: "Plain",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 82,
+            name: "Light Mosaic",
+            type: "Wood Mosaic",
+             
+            images: ["light 2x3.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Plain",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 83,
+            name: "Light & Grain Mosaic",
+            type: "Wood Mosaic",
+             
+            images: ["light and grain 3x4.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Plain",
+                sizeValue: "3x4 ft"
+            }
+        },
+        {
+            id: 84,
+            name: "Light Geometric Mosaic",
+            type: "Wood Mosaic",
+             
+            images: ["light geometric 2x4.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Burnt",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 85,
+            name: "Natural Mosaic (2x3)",
+            type: "Wood Mosaic",
+             
+            images: ["natural 2x3.png", "natural 2x3 (1).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Plain",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 86,
+            name: "Natural Mosaic (2x4)",
+            type: "Wood Mosaic",
+             
+            images: ["natural 2x4.png", "natural 2x4 (2).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Plain",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 87,
+            name: "Natural Mosaic (2x5)",
+            type: "Wood Mosaic",
+             
+            images: ["natural 2x5.png", "natural 2x5 (1).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Plain",
+                sizeValue: "2x5 ft"
+            }
+        },
+        {
+            id: 88,
+            name: "Natural Mosaic (3x3)",
+            type: "Wood Mosaic",
+             
+            images: ["natural 3x3.png", "natural 3x3 (1).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Plain",
+                sizeValue: "3x3 ft"
+            }
+        },
+        {
+            id: 90,
+            name: "Natural Mosaic (4x5)",
+            type: "Wood Mosaic",
+             
+            images: ["natural 4x5.png", "natural 4x5 (1).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Plain",
+                sizeValue: "4x5 ft"
+            }
+        },
+        {
+            id: 91,
+            name: "Natural & Grain Mosaic (3x5)",
+            type: "Wood Mosaic",
+             
+            images: ["natural and grain 3x5.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "Scattered",
+                pattern: "Plain",
+                sizeValue: "3x5 ft"
+            }
+        },
+        {   
+            id: 92,
+            name: "Natural & Grain Mosaic (4x8)",
+            type: "Wood Mosaic",
+             
+            images: ["natural and grain 4x8.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Plain",
+                sizeValue: "4x8 ft"
+            }
+        },
+        {
+            id: 93,
+            name: "Natural Burnt Mosaic (3x5)",
+            type: "Wood Mosaic",
+             
+            images: ["natural burnt 3x5.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Burnt",
+                sizeValue: "3x5 ft"
+            }
+        },
+        {
+            id: 94,
+            name: "Natural Burnt Mosaic (3x6)",
+            type: "Wood Mosaic",
+             
+            images: ["natural burnt 3x6.png", "natural burnt 3x6 (1).png", "natural burnt 3x6 (2).png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Burnt",
+                sizeValue: "3x6 ft"
+            }
+        },
+        {
+            id: 95,
+            name: "Natural Burnt Mosaic (3x8)",
+            type: "Wood Mosaic",
+             
+            images: ["natural burnt 3x8.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Burnt",
+                sizeValue: "3x8 ft"
+            }
+        },
+        {
+            id: 96,
+            name: "Natural Circle Burnt Mosaic (2x3)",
+            type: "Wood Mosaic",
+             
+            images: ["natural burnt swirl 2x3.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Burnt",
+                sizeValue: "2x3 ft"
+            }
+        },
+        {
+            id: 97,
+            name: "Natural Geometric Burnt Mosaic (2x4)",
+            type: "Wood Mosaic",
+             
+            images: ["natural geometric 2x4.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Burnt",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 98,
+            name: "Natural Geometric Burnt Mosaic (2x6)",
+            type: "Wood Mosaic",
+             
+            images: ["natural geometric burnt 2x6.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Burnt",
+                sizeValue: "2x6 ft"
+            }
+        },
+        {
+            id: 100,
+            name: "Natural Stripes Burnt Mosaic (2x4)",
+            type: "Wood Mosaic",
+             
+            images: ["natural stripes 2x4.png"], 
+            specs: {
+                frame: "Black",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Burnt",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {
+            id: 101,
+            name: "Natural Stripes Burnt Mosaic (3x4)",
+            type: "Wood Mosaic",
+             
+            images: ["natural stripes 3x4.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "1-Color",
+                blocksPlacement: "None",
+                pattern: "Burnt",
+                sizeValue: "3x4 ft"
+            }
+        },
+        {   
+            id: 102,
+            name: "Otom",
+            type: "Wood Mosaic",
+             
+            images: ["natural with pattern 4x5.png"], 
+            specs: {
+                frame: "None",
+                colorCombination: "2-Color",
+                blocksPlacement: "Customized",
+                pattern: "Mixed",
+                sizeValue: "4x5 ft"
+            }
+        },
+        {   
+            id: 103,
+            name: "Pieces of Wood (2.5x4)",
+            type: "Pieces of Wood",
+             
+            images: ["pieces of wood 2.5x4.png", "pieces of wood 2.5x4 (1).png"], 
+            specs: {
+                frame: "Black",
+                color: "Dark",
+                backlight: "Without Backlight",
+                sizeValue: "2.5x4 ft"
+            }
+        },
+        {   
+            id: 104,
+            name: "Pieces of Wood (2.5x5)",
+            type: "Pieces of Wood",
+             
+            images: ["pieces of wood 2.5x5.png"], 
+            specs: {
+                frame: "Black",
+                color: "Dark",
+                backlight: "Without Backlight",
+                sizeValue: "2.5x4 ft"
+            }
+        },
+        {   
+            id: 105,
+            name: "Pieces of Wood (2x4)",
+            type: "Pieces of Wood",
+             
+            images: ["pieces of wood 2x4.png"], 
+            specs: {
+                frame: "Black",
+                color: "Dark",
+                backlight: "Without Backlight",
+                sizeValue: "2x4 ft"
+            }
+        },
+        {   
+            id: 106,
+            name: "Pieces of Wood (2x5)",
+            type: "Pieces of Wood",
+             
+            images: ["pieces of wood 2x5.png"], 
+            specs: {
+                frame: "Black",
+                color: "Dark",
+                backlight: "Without Backlight",
+                sizeValue: "2x5 ft"
+            }
+        },
+        {   
+            id: 107,
+            name: "Pieces of Wood (3x3)",
+            type: "Pieces of Wood",
+             
+            images: ["pieces of wood 3x3.png"], 
+            specs: {
+                frame: "Black",
+                color: "Dark",
+                backlight: "Without Backlight",
+                sizeValue: "3x3 ft"
+            }
+        },
+        {   
+            id: 108,
+            name: "Pieces of Wood - Dark (3x4)",
+            type: "Pieces of Wood",
+             
+            images: ["pieces of wood 3x4.png", "pieces of wood 3x4 (1).png", "pieces of wood 3x4 (2).png"], 
+            specs: {
+                frame: "Black",
+                color: "Dark",
+                backlight: "Without Backlight",
+                sizeValue: "3x4 ft"
+            }
+        },
+        {   
+            id: 109,
+            name: "Pieces of Wood (3x5)",
+            type: "Pieces of Wood",
+             
+            images: ["pieces of wood 3x5.png"], 
+            specs: {
+                frame: "Burnt",
+                color: "Dark",
+                backlight: "Without Backlight",
+                sizeValue: "3x5 ft"
+            }
+        },
+        {   
+            id: 110,
+            name: "Pieces of Wood (3x8)",
+            type: "Pieces of Wood",
+             
+            images: ["pieces of wood 3x8.png"], 
+            specs: {
+                frame: "Black",
+                color: "Dark",
+                backlight: "Without Backlight",
+                sizeValue: "3x8 ft"
+            }
+        },
+        {   
+            id: 111,
+            name: "Pieces of Wood - Light (3x4)",
+            type: "Pieces of Wood",
+             
+            images: ["pieces of wood light 3x4.png", "pieces of wood light 3x4 (1).png"], 
+            specs: {
+                frame: "Light",
+                color: "Light",
+                backlight: "Without Backlight",
+                sizeValue: "3x4 ft"
+            }
+        },
+        {   
+            id: 112,
+            name: "Pieces of Wood - Light (3x5)",
+            type: "Pieces of Wood",
+             
+            images: ["pieces of wood light 3x5.png"], 
+            specs: {
+                frame: "Light",
+                color: "Light",
+                backlight: "Without Backlight",
+                sizeValue: "3x5 ft"
+            }
+        },
+        {   
+            id: 113,
+            name: "Pieces of Wood - Light Frame (3x4)",
+            type: "Pieces of Wood",
+             
+            images: ["pieces of wood light frame 3x4.png"], 
+            specs: {
+                frame: "Light",
+                color: "Dark",
+                backlight: "Without Backlight",
+                sizeValue: "3x4 ft"
+            }
+        },
+        {   
+            id: 114,
+            name: "Pieces of Wood - Light Frame (6x7)",
+            type: "Pieces of Wood",
+             
+            images: ["pieces of wood light frame 6x7.png"], 
+            specs: {
+                frame: "Burnt",
+                color: "Dark",
+                backlight: "Without Backlight",
+                sizeValue: "6x7 ft"
+            }
+        },
+        {   
+            id: 115,
+            name: "Pieces of Wood - Without Frame",
+            type: "Pieces of Wood",
+             
+            images: ["pieces of wood w.o frame w. backlight (3).png","pieces of wood w.o frame w. backlight (1).png","pieces of wood w.o frame w. backlight (2).png","pieces of wood w.o frame w. backlight.png"], 
+            specs: {
+                frame: "None",
+                color: "Dark",
+                backlight: "With Backlight",
+                sizeValue: "3x4 ft"
+            }
+        },
+        {   
+            id: 116,
+            name: "Last Supper Burnt Head (1.5x3)",
+            type: "Last Supper",
+             
+            images: ["burnt head 1.5x3.png"], 
+            specs: {
+                frame: "Dark",
+                head: "Burnt Wood",
+                body: "Light",
+                table: "Dark",
+                tablecloth: "None",
+                background: "Natural",
+                chalice: "None",
+                size: "1.5x3 ft"
+            }
+        },
+        {   
+            id: 117,
+            name: "Last Supper Burnt Head (2x4)",
+            type: "Last Supper",
+             
+            images: ["burnt head 2x4.png", "burnt head 2x4 (1).png", "burnt head 2x4 (2).png"], 
+            specs: {
+                frame: "Dark",
+                head: "Burnt Wood",
+                body: "Light",
+                table: "Dark",
+                tablecloth: "None",
+                background: "Natural",
+                chalice: "Dark",
+                size: "2x4 ft"
+            }
+        },
+        {   
+            id: 118,
+            name: "Last Supper Multi-Color (1.5x3)",
+            type: "Last Supper",
+             
+            images: ["colorful 1.5x3.png"], 
+            specs: {
+                frame: "Dark",
+                head: "Burnt Wood",
+                body: "Multi-Color",
+                table: "Dark",
+                tablecloth: "None",
+                background: "Natural",
+                chalice: "Dark",
+                size: "1.5x3 ft"
+            }
+        },
+        {   
+            id: 119,
+            name: "Last Supper Multi-Color (2x4)",
+            type: "Last Supper",
+             
+            images: ["colorful 2x4.png", "colorful 2x4 (1).png", "colorful 2x4 (2).png"], 
+            specs: {
+                frame: "Dark",
+                head: "Burnt Wood",
+                body: "Multi-Color",
+                table: "Dark",
+                tablecloth: "None",
+                background: "Natural",
+                chalice: "Dark",
+                size: "2x4 ft"
+            }
+        },
+        {   
+            id: 120,
+            name: "Last Supper Multi-Color (3x6)",
+            type: "Last Supper",
+             
+            images: ["colorful 3x6.png"], 
+            specs: {
+                frame: "Dark",
+                head: "Light",
+                body: "Multi-Color",
+                table: "Dark",
+                tablecloth: "None",
+                background: "Natural",  
+                chalice: "Dark",
+                size: "3x6 ft"
+            }
+        },
+        {   
+            id: 121,
+            name: "Last Supper Multi-Color Black Frame (1.5x3)",
+            type: "Last Supper",
+             
+            images: ["colorful black 1.5x3.png"], 
+            specs: {
+                frame: "Black",
+                head: "Light",
+                body: "Multi-Color",
+                table: "Dark",
+                tablecloth: "None",
+                background: "Natural",  
+                chalice: "Dark",
+                size: "1.5x3 ft"
+            }
+        },
+        {   
+            id: 123,
+            name: "Last Supper Light (2x4)",
+            type: "Last Supper",
+             
+            images: ["light 2x4 (1).png", "light 2x4.png"], 
+            specs: {
+                frame: "Light",
+                head: "Light",
+                body: "Light",
+                table: "Natural",
+                tablecloth: "None",
+                background: "Light",  
+                chalice: "Dark",
+                size: "2x4 ft"
+            }
+        },
+        {   
+            id: 124,
+            name: "Last Supper Black (1.5x3)",
+            type: "Last Supper",
+             
+            images: ["black 1.5x3 (1).png", "black 1.5x3 (2).png", "black 1.5x3 (3).png"], 
+            specs: {
+                frame: "Black",
+                head: "Light",
+                body: "Light",
+                table: "Light",
+                tablecloth: "None",
+                background: "Black",  
+                chalice: "Dark",
+                size: "1.5x3 ft"
+            }
+        },
+        {   
+            id: 125,
+            name: "Last Supper Light Body Black Frame (2x4)",
+            type: "Last Supper",
+             
+            images: ["light body black frame 2x4.png"], 
+            specs: {
+                frame: "Black",
+                head: "Light",
+                body: "Light",
+                table: "Black",
+                tablecloth: "None",
+                background: "Natural",  
+                chalice: "Black",
+                size: "2x4 ft"
+            }
+        },
+        {   
+            id: 126,
+            name: "Last Supper Dark Table Black Frame (1.5x3)",
+            type: "Last Supper",
+             
+            images: ["dark table black frame 1.5x3.png"], 
+            specs: {
+                frame: "Black",
+                head: "Light",
+                body: "Light",
+                table: "Dark",
+                tablecloth: "None",
+                background: "Black",  
+                chalice: "Dark",
+                size: "1.5x3 ft"
+            }
+        },
+        {   
+            id: 127,
+            name: "Last Supper Light Body Dark Background (1.5x3)",
+            type: "Last Supper",
+             
+            images: ["light body dark bg 1.5x3 (2).png", "light body dark bg 1.5x3 (3).png"], 
+            specs: {
+                frame: "Dark",
+                head: "Light",
+                body: "Light",
+                table: "Dark",
+                tablecloth: "None",
+                background: "Dark",  
+                chalice: "Dark",
+                size: "1.5x3 ft"
+            }
+        },
+        {   
+            id: 128,
+            name: "Last Supper Light Body (1.5x3)",
+            type: "Last Supper",
+             
+            images: ["light body 1.5x3.png"], 
+            specs: {
+                frame: "Dark",
+                head: "Light",
+                body: "Light",
+                table: "Dark",
+                tablecloth: "None",
+                background: "Natural",  
+                chalice: "None",
+                size: "1.5x3 ft"
+            }
+        },
+        {   
+            id: 129,
+            name: "Last Supper Light Body (2x4)",
+            type: "Last Supper",
+             
+            images: ["light body 2x4 (2).png"], 
+            specs: {
+                frame: "Dark",
+                head: "Light",
+                body: "Light",
+                table: "Dark",
+                tablecloth: "None",
+                background: "Natural",  
+                chalice: "None",
+                size: "2x4 ft"
+            }
+        },
+        {   
+            id: 130,
+            name: "Last Supper Light Body Black Frame (3x6)",
+            type: "Last Supper",
+             
+            images: ["light body black frame 3x6.png"], 
+            specs: {
+                frame: "Black",
+                head: "Light",
+                body: "Light",
+                table: "Dark",
+                tablecloth: "Black",
+                background: "Natural",  
+                chalice: "Light",
+                size: "3x6 ft"
+            }
+        },
+        {   
+            id: 131,
+            name: "Last Supper Light Body Dark Background (2x4)",
+            type: "Last Supper",
+             
+            images: ["light body dark bg 2x4 (2).png", "light body dark bg 2x4 (1).png", "light body dark bg 2x4 (3).png"], 
+            specs: {
+                frame: "Dark",
+                head: "Light",
+                body: "Light",
+                table: "Dark",
+                tablecloth: "None",
+                background: "Dark",  
+                chalice: "Dark",
+                size: "2x4 ft"
+            }
+        },
+        {   
+            id: 132,
+            name: "Last Supper Natural Body (1.5x3)",
+            type: "Last Supper",
+             
+            images: ["natural body 1.5x3.png"], 
+            specs: {
+                frame: "Dark",
+                head: "Natural",
+                body: "Natural",
+                table: "Dark",
+                tablecloth: "None",
+                background: "Natural",  
+                chalice: "Dark",
+                size: "1.5x3 ft"
+            }
+        },
+        {   
+            id: 133,
+            name: "Last Supper Natural Body (2x4)",
+            type: "Last Supper",
+             
+            images: ["natural body 2x4 (5).png", "natural body 2x4 (3).png","natural body 2x4 (1).png", "natural body 2x4 (2).png","natural body 2x4 (4).png"], 
+            specs: {
+                frame: "Dark",
+                head: "Natural",
+                body: "Natural",
+                table: "Dark",
+                tablecloth: "None",
+                background: "Natural",  
+                chalice: "Dark",
+                size: "1.5x3 ft"
+            }
+        },
+        {   
+            id: 134,
+            name: "Wooden Cross - Dark & Green",
+            type: "Wooden Cross",
+             
+            images: ["cross dark green.png"], 
+            specs: {
+                woodColor: "Dark",
+                backlight: "Green",
+            }
+        },
+        {   
+            id: 135,
+            name: "Wooden Cross - Dark & Purple",
+            type: "Wooden Cross",
+             
+            images: ["cross dark purple.png"], 
+            specs: {
+                woodColor: "Dark",
+                backlight: "Purple",
+            }
+        },
+        {   
+            id: 136,
+            name: "Wooden Cross - Dark & White",
+            type: "Wooden Cross",
+             
+            images: ["cross dark white (1).png", "cross dark white.png"], 
+            specs: {
+                woodColor: "Dark",
+                backlight: "White",
+            }
+        },
+        {   
+            id: 137,
+            name: "Wooden Cross - Light & Warm",
+            type: "Wooden Cross",
+             
+            images: ["cross light warm.png", "cross light warm (1).png"], 
+            specs: {
+                woodColor: "Light",
+                backlight: "Yellow or Warm",
+            }
+        },
+        {   
+            id: 138,
+            name: "Wooden Cross - Light & Blue",
+            type: "Wooden Cross",
+             
+            images: ["cross light blue.png"], 
+            specs: {
+                woodColor: "Light",
+                backlight: "Blue",
+            }
+        },        
+    ];
+
+
+    // LAYOUT B
+    function renderLayoutB(container, label, options, selected) {
+        const row = document.createElement('div');
+        row.className = 'spec-row spec-row-b';
+        
+        const optCircles = options.map(opt => {
+            // Looks up the image, or uses a fallback if you haven't added it to the dictionary yet
+            const imgSrc = optionImages[opt] || 'placeholder.png'; 
+            
+            return `
+            <div class="spec-circle-item${opt === selected ? ' spec-circle-active' : ''}">
+                <img src="${imgSrc}" class="spec-circle-img" alt="${opt}" style="object-fit: cover;">
+                <span class="spec-circle-label">${opt}</span>
+            </div>`;
+        }).join('');
+
+        row.innerHTML = `
+            <div class="spec-col-left">
+                <span class="spec-label-b">${label}</span>
+                <span class="spec-avail-note">Available Options</span>
+            </div>
+            <div class="spec-col-right spec-circles-wrap" style="align-content:flex-start;">${optCircles}</div>`;
+        container.appendChild(row);
+    }
+
+    // LAYOUT A
+    function renderLayoutA(container, label, options, selected) {
+        const row = document.createElement('div');
+        row.className = 'spec-row spec-row-a';
+        const others = options.filter(o => o !== selected).join(', ');
+
+        const canCustom = label.includes('(can be customized)');
+        const mainLabel = canCustom ? label.replace(' (can be customized)', '') : label;
+        const subtitleHtml = canCustom
+            ? `<span class="spec-subtitle-note">(can be customized)</span>`
+            : '';
+
+        row.innerHTML = `
+            <div class="spec-col-left">
+                <span class="spec-label-b" style="${canCustom ? 'text-transform:none;font-weight:700;' : ''}">${mainLabel}</span>
+                ${subtitleHtml}
+                <span class="spec-avail-note">Available Options</span>
+            </div>
+            <div class="spec-col-right">
+                <span class="spec-chosen-val">${selected}</span>
+                ${others ? `<span class="spec-other-vals">${others}</span>` : ''}
+            </div>`;
+        container.appendChild(row);
+    }
+
+    // LAYOUT C
+    function renderLayoutC(container, label, value) {
+        const row = document.createElement('div');
+        row.className = 'spec-row spec-row-a';
+
+        const canCustom = label.includes('(can be customized)');
+        const mainLabel = canCustom ? label.replace(' (can be customized)', '') : label;
+        const subtitleHtml = canCustom
+            ? `<span class="spec-subtitle-note">(can be customized)</span>`
+            : '';
+
+        row.innerHTML = `
+            <div class="spec-col-left">
+                <span class="spec-others-title" style="min-width: auto; padding-top: 0;">${mainLabel}</span>
+                ${subtitleHtml}
+            </div>
+            <div class="spec-col-right">
+                <span class="spec-others-value">${value}</span>
+            </div>`;
+        container.appendChild(row);
+    }
+
+    function renderProductSpecs(p) {
+        const container = document.getElementById('productSpecs');
+        container.innerHTML = '';
+
+        if (p.type === 'Last Supper') {
+            renderLayoutB(container, 'Frame',      ['Light','Dark','Black'],                   p.specs.frame);
+            renderLayoutB(container, 'Head',       ['Light','Natural','Dark','Burnt Wood'],              p.specs.head);
+            renderLayoutB(container, 'Body',       ['Light','Natural','Multi-Color'],              p.specs.body);
+            renderLayoutB(container, 'Table',       ['Light','Natural','Dark','Black'],                   p.specs.table);
+            renderLayoutB(container, 'Table Cloth', ['None','Light','Black'],                   p.specs.tablecloth);
+            renderLayoutB(container, 'Background', ['Natural','Dark','Black'],                   p.specs.background);
+            renderLayoutB(container, 'Chalice',    ['None','Light','Dark','Black'],            p.specs.chalice);
+            renderLayoutA(container, 'Size',       ['1.5x3 ft','2x4 ft','3x6 ft'],                     p.specs.size);
+
+        } else if (p.type === 'Pieces of Wood') {
+            renderLayoutB(container, 'Frame',  ['None','Light','Black','Burnt'],               p.specs.frame);
+            renderLayoutB(container, 'Color',  ['Light','Dark'],                       p.specs.color);
+            renderLayoutA(container, 'Backlight', ['With Backlight','Without Backlight'], p.specs.backlight);
+            renderLayoutC(container, 'Size (can be customized)', p.specs.sizeValue);
+
+        } else if (p.type === 'Wood Mosaic') {
+            renderLayoutB(container, 'Frame',            ['None','Light','Dark','Black', 'Burnt'],                                                                           p.specs.frame);
+            renderLayoutB(container, 'Pattern', ['None','Gradient (Airbrushed)','Gradient (Overlapping)','Gradient (Non-Overlapping)','Scattered','Customized'], p.specs.blocksPlacement);
+            renderLayoutA(container, 'Texture',          ['Plain','Burnt','Mixed'],                                                                                p.specs.pattern);
+            renderLayoutA(container, 'COLORS (can be customized)',
+                ['1-Color','2-Color','3-Color','4-Color','5-Color','6-Color','7-Color','8-Color','More than 8 colors'],
+                p.specs.colorCombination);
+            renderLayoutC(container, 'Size (can be customized)', p.specs.sizeValue);
+
+        } else if (p.type === 'Wooden Cross') {
+            renderLayoutB(container, 'Wood Color', ['Light','Dark'],                                            p.specs.woodColor);
+            renderLayoutB(container, 'Backlight',  ['Yellow or Warm','White','Blue','Purple','Green','Red'],    p.specs.backlight);
+            renderLayoutC(container, 'Size', '45x45cm');
+
+        } else if (p.type === 'Others') {
+            p.specs.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'spec-others-row';
+                row.innerHTML = `<span class="spec-others-title">${item.title}</span><span class="spec-others-value">${item.value}</span>`;
+                container.appendChild(row);
+            });
+        }
+    }
+
+    let currentProductId;
+    let currentModalImageIndex = 0;
+
+    function updateModalNavButtons(images) {
+        const prev = document.getElementById('imgNavPrev');
+        const next = document.getElementById('imgNavNext');
+        if (!prev || !next) return;
+        prev.disabled = currentModalImageIndex === 0;
+        next.disabled = currentModalImageIndex === images.length - 1;
+    }
+
+    function navigateModalImage(dir) {
+        const p = products.find(x => x.id === currentProductId);
+        if (!p) return;
+        const images = p.images;
+        currentModalImageIndex = Math.max(0, Math.min(images.length - 1, currentModalImageIndex + dir));
+        const mainImg = document.getElementById('mainImage');
+        mainImg.style.animation = 'none';
+        mainImg.offsetHeight;
+        mainImg.style.animation = 'fadeIn 0.4s ease';
+        mainImg.src = images[currentModalImageIndex];
+        document.querySelectorAll('.thumbnail').forEach((t, i) => {
+            t.classList.toggle('active', i === currentModalImageIndex);
+        });
+        updateModalNavButtons(images);
+    }
+
+    function openModal(id) {
+        currentProductId = id;
+        currentModalImageIndex = 0;
+        const p = products.find(x => x.id === id);
+        if (!p) return;
+
+        document.getElementById('mainImage').src = p.images[0];
+        document.getElementById('modalName').textContent = p.name;
+
+        const gallery = document.getElementById('thumbnailGallery');
+        gallery.innerHTML = '';
+        p.images.forEach((img, idx) => {
+            const thumb = document.createElement('div');
+            thumb.className = 'thumbnail' + (idx === 0 ? ' active' : '');
+            thumb.innerHTML = `<img src="${img}" alt="Image ${idx + 1}">`;
+            thumb.onclick = () => {
+                currentModalImageIndex = idx;
+                const mainImg = document.getElementById('mainImage');
+                mainImg.style.animation = 'none';
+                mainImg.offsetHeight;
+                mainImg.style.animation = 'fadeIn 0.4s ease';
+                mainImg.src = img;
+                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                thumb.classList.add('active');
+                updateModalNavButtons(p.images);
+            };
+            gallery.appendChild(thumb);
+        });
+
+        updateModalNavButtons(p.images);
+        renderProductSpecs(p);
+        document.getElementById('productModal').style.display = 'block';
+    }
+
+    function closeModal() { document.getElementById('productModal').style.display = 'none'; }
+
+    window.addEventListener('click', e => {
+        if (e.target === document.getElementById('productModal')) closeModal();
+    });
+
+    function messageToOrder() {
+        window.open("https://www.facebook.com/profile.php?id=100095777612310", '_blank');
+    }
+
+    /* ========= FILTER & GRID ========= */
+
+    let currentPage = 1;
+    const productsPerPage = 15;
+
+    function generateProductsGrid(pageNum = 1) {
+        currentPage = pageNum;
+
+        // Filter by design type
+        const selectedDesigns = [];
+        document.querySelectorAll('.filter-check:checked').forEach(cb => selectedDesigns.push(cb.value));
+        
+        let filtered = products.filter(p =>
+            selectedDesigns.length === 0 || selectedDesigns.includes(p.type)
+        );
+
+        // Filter by search (must happen before pagination)
+        const searchQuery = document.getElementById('productSearch').value.toLowerCase().trim();
+        if (searchQuery) {
+            filtered = filtered.filter(p => p.name.toLowerCase().includes(searchQuery));
+        }
+
+        // Paginate
+        const totalPages = Math.ceil(filtered.length / productsPerPage);
+        const pageProducts = filtered.slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage);
+
+        // Render with fade-in
+        const grid = document.getElementById('productsGrid');
+        grid.style.animation = 'none';
+        grid.offsetHeight;
+        grid.style.animation = 'fadeInPage 0.4s ease';
+        grid.innerHTML = filtered.length === 0
+            ? '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--accent);">No products match your search or filter.</div>'
+            : '';
+
+        pageProducts.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.onclick = () => openModal(p.id);
+            card.innerHTML = `
+                <div class="product-image"><img src="${p.images[0]}" alt="${p.name}"></div>
+                <div class="product-info">
+                    <div class="product-name">${p.name}</div>
+                    <div class="product-see-details">See Details ›</div>
+                </div>`;
+            grid.appendChild(card);
+        });
+
+        // 5. Page numbers
+        const pageNumbersDiv = document.getElementById('pageNumbers');
+        pageNumbersDiv.innerHTML = '';
+        if (totalPages > 1) {
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'page-number' + (i === currentPage ? ' active' : '');
+                btn.textContent = i;
+                btn.onclick = () => generateProductsGrid(i);
+                pageNumbersDiv.appendChild(btn);
+            }
+        }
+    }
+
+    /* ========= NAV ========= */
+
+    function switchSection(sectionId) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(sectionId).classList.add('active');
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('nav-active'));
+        const navLink = document.querySelector(`[data-section="${sectionId}"]`);
+        if (navLink) navLink.classList.add('nav-active');
+        if (sectionId === 'collection') generateProductsGrid();
+        window.scrollTo(0, 0);
+    }
+
+    function goToOrderHere() { switchSection('contact'); }
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                switchSection(link.getAttribute('data-section'));
+            });
+        });
+
+        document.getElementById('productSearch').addEventListener('input', () => generateProductsGrid(1));
+
+        document.querySelectorAll('.filter-check').forEach(cb => {
+            cb.addEventListener('change', () => generateProductsGrid(1));
+        });
+
+        let currentSlideIndex = 1;
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.dot');
+            if (n > slides.length) currentSlideIndex = 1;
+            if (n < 1) currentSlideIndex = slides.length;
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            slides[currentSlideIndex - 1].classList.add('active');
+            dots[currentSlideIndex - 1].classList.add('active');
+        }
+        window.currentSlide = function(n) { showSlide(currentSlideIndex = n); };
+        window.changeSlide = function(dir) { showSlide(currentSlideIndex += dir); };
+        
+        showSlide(currentSlideIndex);
+        setInterval(() => showSlide(++currentSlideIndex), 5000);
+
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
+        });
+    });
+    </script>
+
+</body>
+</html>
